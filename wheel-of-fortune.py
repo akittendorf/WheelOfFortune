@@ -331,7 +331,7 @@ def wheel_of_fortune(file): # takes file of words, returns none, runs game
     time.sleep(5)
     print('The game rules will open in a new window. Please review them prior to starting.')
     time.sleep(3)
-    webbrowser.open("https://github.com/akittendorf/WheelOfFortune/blob/main/README.md")
+    webbrowser.open("https://github.com/akittendorf/WheelOfFortune/blob/main/instructions.txt")
     time.sleep(4)
     print('Loading words...')
     words = get_words(file)
