@@ -325,39 +325,39 @@ def round3(richest, chosen_word): # takes one player and one word, returns None,
             richest['perm_bank'] += 100000
             continue
 
-# execution  
-print('Welcome to Wheel of Fortune! Compete against two other players in this word game for the chance to win cash prizes.')
-time.sleep(5)
-print('The game rules will open in a new window. Please review them prior to starting.')
-time.sleep(3)
-webbrowser.open("https://github.com/akittendorf/WheelOfFortune/blob/main/README.md")
-time.sleep(4)
-print('Loading words...')
-words = get_words('animals.txt')
-time.sleep(4)
-print('Finalizing set-up...')
-players = get_players()
-time.sleep(4)
-print('The theme is: Animals')
-time.sleep(4)
-
-# rounds 1 and 2
-for i in range(0, 2):
-    print('Round {}'.format(i+1))
-    starter = starting_player(players)
+# execution 
+def wheel_of_fortune(file): # takes file of words, returns none, runs game
+    print('Welcome to Wheel of Fortune! Compete against two other players in this word game for the chance to win cash prizes.')
+    time.sleep(5)
+    print('The game rules will open in a new window. Please review them prior to starting.')
+    time.sleep(3)
+    webbrowser.open("https://github.com/akittendorf/WheelOfFortune/blob/main/README.md")
+    time.sleep(4)
+    print('Loading words...')
+    words = get_words(file)
+    time.sleep(4)
+    print('Finalizing set-up...')
+    players = get_players()
+    time.sleep(4)
+    print('The theme is: Animals')
+    time.sleep(4)
+    # rounds 1 and 2
+    for i in range(0, 2):
+        print('Round {}'.format(i+1))
+        starter = starting_player(players)
+        chosen_word = choose_word(words)
+        round1or2(chosen_word, starter, players)
+        for player in players:
+            player['temp_bank'] = 0
+    # round 3
+    winner = richest(players)
     chosen_word = choose_word(words)
-    round1or2(chosen_word, starter, players)
-    for player in players:
-        player['temp_bank'] = 0
+    round3(winner, chosen_word)
+    # results
+    print('''Congratulations, Player {}! 
+        You won Wheel of Fortune and walked away with ${}!'''.format(winner['player'], winner['perm_bank']))
+    time.sleep(3)
+    print('''This game has ended. Goodbye!''')
+    time.sleep(1)
 
-# round 3
-richest = richest(players)
-chosen_word = choose_word(words)
-round3(richest, chosen_word)
-
-# results
-print('''Congratulations, Player {}! 
-      You won Wheel of Fortune and walked away with ${}!'''.format(richest['player'], richest['perm_bank']))
-time.sleep(3)
-print('''This game has ended. Goodbye!''')
-time.sleep(1)
+wheel_of_fortune('animals.txt')
